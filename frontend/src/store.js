@@ -1,11 +1,12 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { createStore, combineReducers, applyMiddleware } from "redux";
 import thunk from 'redux-thunk'; // middleware
-import rootReducer from './reducers'; // import your root reducer
+import { composeWithDevTools } from '@redux-devtools/extension'; // devtools
 
-const store = configureStore({
-  reducer: rootReducer,
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk),
-  devTools: process.env.NODE_ENV !== 'production', // Redux DevTools will be enabled only in development mode
-});
+const reducer = combineReducers({}); // combine reducers
+const initialState = {}; // initial state
 
-export default store;
+const middleware = [thunk]; // middleware
+
+const store = createStore(reducer, initialState, composeWithDevTools(applyMiddleware(...middleware))); // create store 
+
+export default store; // export store
