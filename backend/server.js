@@ -1,4 +1,5 @@
 const express = require('express');
+const {errorHandler} = require('./midddlewares/errorMiddleware');
 const dotenv = require('dotenv');
 const connectDB = require('./config/config');
 const cors = require('cors');
@@ -19,7 +20,7 @@ app.get('/', (req, res) => {
 
 //Using the productRoutes
 app.use('/api', productRoutes);
-
+app.use(errorHandler);
 app.listen(process.env.PORT || 3000, () => {
     console.log(`Server is running on port ${process.env.PORT}`);
 });
